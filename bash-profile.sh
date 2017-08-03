@@ -5,7 +5,7 @@ parse_git_branch() {
 }
 
 export PS1=":\W\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
-export PATH=$PATH:~/bin:~/.local/bin
+export PATH=$PATH:~/bin:~/.local/bin:~/.stuff/bin
 export EDITOR="emacs -nw"
 
 alias ls="ls -G"
