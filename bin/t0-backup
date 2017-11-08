@@ -1,23 +1,10 @@
 #!/usr/bin/env bash
 #
-# Encrypted backup of private files to S3.
+# Backup my files to S3.
 
 set -euo pipefail
-
-ME="anton.tayanovskyy@gmail.com"
-DST="s3://t0yv0-files"
-PROFILE="anton"
-SEC="secrets.tar.gz.gpg"
-
+S3="s3://t0yv0-files"
 pushd "$HOME"
-
-echo "Backing up ~/secrets to $DST/$SEC"
-rm -rf "/tmp/$SEC"
-gpg --encrypt -r "$ME" -o "/tmp/$SEC" <(tar -zcv secrets)
-aws s3 --profile "$PROFILE" cp "/tmp/$SEC" "$DST/$SEC"
-rm -rf "/tmp/$SEC"
-
-echo "Syncing ~/my to $DST/my"
-aws s3 --profile "$PROFILE" sync "my/" "$DST/my/" "$@"
-
+echo "Syncing ~/my to $S3/my"
+aws s3 --profile anton sync my/ "$S3/my/" "$@"
 popd
